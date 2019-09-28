@@ -22,5 +22,10 @@ servicesModule.service('Comments', CommentsService);
 import TagsService from './tags.service';
 servicesModule.service('Tags', TagsService);
 
+import SuggestionService from './suggestions.service';
+servicesModule.service('Suggestions', SuggestionService);
+
+import ToastrService from './toastr.service';
+servicesModule.service('Toastr', ToastrService);
 
 export default servicesModule;

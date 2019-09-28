@@ -1,0 +1,62 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Sample API",
+    "description": "Optional multiline or single-line description in [CommonMark](http://commonmark.org/help/) or HTML.",
+    "version": "0.0.1"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3333/api",
+      "description": "Optional server description, e.g. Main (production) server"
+    }
+  ],
+  "paths": {
+    "/suggestions/new": {
+      "post": {
+        "summary": "Send new suggestion.",
+        "responses": {
+          "200": {
+            "description": "Correct",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "Invalid method"
+          }, 
+          "500": {
+            "description": "Error sending email"
+          }
+        }
+      },
+      "parameters": [
+        {
+          "name": "name",
+          "in": "body",
+          "required": true,
+          "description": "Name"
+        },
+        {
+          "name": "email",
+          "in": "body",
+          "required": true,
+          "description": "Email"
+        },
+        {
+          "name": "content",
+          "in": "body",
+          "required": true,
+          "description": "Content"
+        }
+      ]
+    }
+  }
+}

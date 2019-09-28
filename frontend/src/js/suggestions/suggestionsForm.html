@@ -1,0 +1,13 @@
+<form>
+    <input type="text" required placeholder="Name" ng-model="$ctrl.suggestion.name" ng-minlength="3"
+        ng-maxlength="20"><br>
+
+    <input type="text" required placeholder="Email" ng-model="$ctrl.suggestion.email"
+        ng-pattern="/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/i"><br>
+
+    <textarea type="text" placeholder="Suggestion" ng-model="$ctrl.suggestion.content"></textarea><br>
+
+    <input type="submit"
+        ng-show="$ctrl.suggestion.name != null && $ctrl.suggestion.email != null && $ctrl.suggestion.content != null"
+        ng-click="$ctrl.sendSug()">
+</form>
