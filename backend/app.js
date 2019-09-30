@@ -8,9 +8,25 @@ var http = require('http'),
     passport = require('passport'),
     errorhandler = require('errorhandler'),
     mongoose = require('mongoose'),
-    swaggerUi = require('swagger-ui-express');
+    swaggerUi = require('swagger-ui-express')
+    log4js = require('log4js');
+
+// MODELS
+require('./models/User');
+require('./models/Article');
+require('./models/Comment');
+require('./models/Element');
+
+require('./config/passport');
 
 var constants = require('./config/constants')
+
+log4js.configure({
+  appenders: { 'app': { type: 'file', filename: 'logs/app.log' } },
+  categories: { default: { appenders: ['app'], level: 'debug' } }
+});
+
+const logger = log4js.getLogger();
 
 //// Swagger ////
 var swaggerDocument = require('./swagger.json');
@@ -43,11 +59,6 @@ if(isProduction){
   mongoose.connect('mongodb://localhost/conduit_nodejs');
   mongoose.set('debug', true);
 }
-
-require('./models/User');
-require('./models/Article');
-require('./models/Comment');
-require('./config/passport');
 
 app.use(require('./routes'));
 //// Swagger ////
@@ -88,6 +99,7 @@ app.use(function(err, req, res, next) {
 });
 
 // finally, let's start our server...
-var server = app.listen( constants.PORT, function(){
-  console.log('Listening on port ' + constants.PORT);
+var server = app.listen(constants.PORT, function(){
+  logger.info('Listening on port ' + constants.PORT);
+  // console.log('Listening on port ' + constants.PORT);
 });

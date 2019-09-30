@@ -7,7 +7,9 @@
 
     <textarea type="text" placeholder="Suggestion" ng-model="$ctrl.suggestion.content"></textarea><br>
 
-    <input type="submit"
+    <button
         ng-show="$ctrl.suggestion.name != null && $ctrl.suggestion.email != null && $ctrl.suggestion.content != null"
         ng-click="$ctrl.sendSug()">
+        Send
+    </button>
 </form>

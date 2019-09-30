@@ -14,6 +14,8 @@ var merge         = require('merge-stream');
 var jsFiles   = "src/js/**/*.js";
 var viewFiles = "src/js/**/*.html";
 
+const ISOMORFIC = false;
+
 var interceptErrors = function(error) {
   var args = Array.prototype.slice.call(arguments);
 
@@ -29,6 +31,18 @@ var interceptErrors = function(error) {
 
 
 gulp.task('browserify', ['views'], function() {
+  if(ISOMORFIC) {
+    browserify('./src/js/app.js')
+      .transform(babelify, {presets: ["es2015"]})
+      .transform(ngAnnotate)
+      .bundle()
+      .on('error', interceptErrors)
+      //Pass desired output filename to vinyl-source-stream
+      .pipe(source('main.js'))
+      // Start piping stream to tasks!
+      .pipe(gulp.dest('../backend/public/'));
+  }
+
   return browserify('./src/js/app.js')
       .transform(babelify, {presets: ["es2015"]})
       .transform(ngAnnotate)
@@ -41,6 +55,12 @@ gulp.task('browserify', ['views'], function() {
 });
 
 gulp.task('html', function() {
+  if(ISOMORFIC){
+    gulp.src("src/index.html")
+    .on('error', interceptErrors)
+    .pipe(gulp.dest('../backend/public/'))
+  }
+
   return gulp.src("src/index.html")
       .on('error', interceptErrors)
       .pipe(gulp.dest('./build/'));
