@@ -1,15 +1,15 @@
-var http = require('http'),
-    path = require('path'),
-    methods = require('methods'),
-    express = require('express'),
-    bodyParser = require('body-parser'),
-    session = require('express-session'),
-    cors = require('cors'),
-    passport = require('passport'),
-    errorhandler = require('errorhandler'),
-    mongoose = require('mongoose'),
-    swaggerUi = require('swagger-ui-express')
-    log4js = require('log4js');
+var http = require('http')
+var path = require('path')
+var methods = require('methods')
+var express = require('express')
+var bodyParser = require('body-parser')
+var session = require('express-session')
+var cors = require('cors')
+var passport = require('passport')
+var errorhandler = require('errorhandler')
+var mongoose = require('mongoose')
+var swaggerUi = require('swagger-ui-express')
+var log4js = require('log4js');
 
 // MODELS
 require('./models/User');
@@ -22,8 +22,8 @@ require('./config/passport');
 var constants = require('./config/constants')
 
 log4js.configure({
-  appenders: { 'app': { type: 'file', filename: 'logs/app.log' } },
-  categories: { default: { appenders: ['app'], level: 'debug' } }
+  appenders: { 'app': { type: 'file', filename: 'logs/app.log' } , 'console':{type:'console'}},
+  categories: { default: { appenders: ['app', 'console'], level: 'debug' } }
 });
 
 const logger = log4js.getLogger();

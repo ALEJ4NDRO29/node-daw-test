@@ -27,4 +27,10 @@ componentsModule.component('articleList', ArticleList);
 import ListPagination from './article-helpers/list-pagination.component';
 componentsModule.component('listPagination', ListPagination);
 
+import ElementList from './elements-helpers/element-list.component';
+componentsModule.component('elementList', ElementList);
+
+import ElementPreview from './elements-helpers/element-preview.component';
+componentsModule.component('elementPreview', ElementPreview);
+
 export default componentsModule;

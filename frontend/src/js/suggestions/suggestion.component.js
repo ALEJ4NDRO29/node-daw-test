@@ -5,9 +5,9 @@ class SuggestionCompCtrl {
 
         // Form data
         this.suggestion = {
-            name: 'test',
-            email: 'a@a.com',
-            content: 'Test content'
+            name: '',
+            email: '',
+            content: ''
         };
 
         this.sendSug = function () {

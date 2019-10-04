@@ -28,4 +28,7 @@ servicesModule.service('Suggestions', SuggestionService);
 import ToastrService from './toastr.service';
 servicesModule.service('Toastr', ToastrService);
 
+import ElementsService from './elements.service';
+servicesModule.service('Elements', ElementsService);
+
 export default servicesModule;

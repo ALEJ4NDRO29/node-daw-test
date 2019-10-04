@@ -1,4 +1,4 @@
- <div class="home-page">
+<div class="home-page">
 
   <!-- Splash banner that only shows when not logged in -->
   <div class="banner" show-authed="false">
@@ -19,8 +19,7 @@
           <ul class="nav nav-pills outline-active">
 
             <li class="nav-item" show-authed="true">
-              <a href="" class="nav-link"
-                ng-class="{ active: $ctrl.listConfig.type === 'feed' }"
+              <a href="" class="nav-link" ng-class="{ active: $ctrl.listConfig.type === 'feed' }"
                 ng-click="$ctrl.changeList({ type: 'feed' })">
                 Your Feed
               </a>
@@ -44,20 +43,22 @@
         </div>
 
         <!-- List the current articles -->
-        <article-list limit="10" list-config="$ctrl.listConfig"></article-list>
-
+        <!-- <article-list limit="10" list-config="$ctrl.listConfig"></article-list> -->
+        <br>
+        <element-list></element-list>
+        <!-- TODO : pagination -->
+        
       </div>
 
       <!-- Sidebar where popular tags are listed -->
-      <div class="col-md-3">
+      <!-- <div class="col-md-3">
         <div class="sidebar">
 
           <p>Popular Tags</p>
 
           <div class="tag-list" ng-show="$ctrl.tags">
             <a href="" class="tag-default tag-pill"
-              ng-click="$ctrl.changeList({ type: 'all', filters: { tag: tagName } })"
-              ng-repeat="tagName in $ctrl.tags"
+              ng-click="$ctrl.changeList({ type: 'all', filters: { tag: tagName } })" ng-repeat="tagName in $ctrl.tags"
               ng-bind="tagName">
             </a>
           </div>
@@ -66,13 +67,12 @@
             Loading tags...
           </div>
 
-          <div class="post-preview"
-            ng-show="$ctrl.tagsLoaded && !$ctrl.tags.length">
+          <div class="post-preview" ng-show="$ctrl.tagsLoaded && !$ctrl.tags.length">
             No tags are here... yet.
           </div>
 
         </div>
-      </div>
+      </div> -->
 
       <!-- End the row & container divs -->
     </div>

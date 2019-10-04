@@ -25,6 +25,7 @@
     "express": "4.13.4",
     "express-jwt": "3.3.0",
     "express-session": "1.13.0",
+    "faker": "^4.1.0",
     "jsonwebtoken": "7.1.9",
     "log4js": "^5.1.0",
     "method-override": "2.3.5",

@@ -3,7 +3,6 @@ export default class Suggestions {
     'ngInject';
 
     this.sendSuggestion = function (suggestion) {
-      console.log('aaaaaaaaaaaaaa');
 
       return $http({
         url: `${AppConstants.api}/suggestions/new`,
@@ -11,6 +10,7 @@ export default class Suggestions {
         data: suggestion
       }).then(success)
         .catch(fail);
+
       function success() {
         return true;
       }
