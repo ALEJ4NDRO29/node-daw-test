@@ -1,5 +1,4 @@
 var router = require('express').Router();
-var logger = require('log4js').getLogger();
 
 router.use('/', require('./users'));
 router.use('/profiles', require('./profiles'));

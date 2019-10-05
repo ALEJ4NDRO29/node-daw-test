@@ -9,10 +9,19 @@ export default class Element {
     getAll() {
         return this.$http({
             url: this.AppConstants.api + '/elements/get',
-            method: 'GET',
+            method: 'GET'
           }).then(function (response) {
               return response.data;
           });
+    }
+
+    findOne(slug) {
+        return this.$http({
+            url: `${this.AppConstants.api}/elements/get/${slug}`,
+            method: 'GET'
+        }).then(function (response) {
+            return response.data[0];
+        });
     }
 
 }

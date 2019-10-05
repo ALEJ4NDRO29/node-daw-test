@@ -1,9 +1,15 @@
 class ElementCtrl {
-    constructor($stateParams, $rootScope) {
-        console.log("element const " + $stateParams.slug);
-        
-        $rootScope.title = 'Element ' +  $stateParams.slug;
+    constructor(element, $rootScope) {
+        this.element = element;
+
+        $rootScope.setPageTitle(this.element.title);
+
+        console.log(element);
     }
+
+
+
+
 }
 
 export default ElementCtrl;

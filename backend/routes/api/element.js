@@ -25,16 +25,37 @@ router.get('/get/:slug', function (req, res) {
     });
 });
 
+var fakerEnabled = false;
+router.post('/fake/:qty', function (req, res) {
+    if(!fakerEnabled) {
+        res.status(404).send();
+        return;
+    }
 
-// router.get('/fake/:qty', function (req, res) {
-//     let qty = req.params.qty;
-//     let txt = "";
-//     for (let i = 0; i < qty; i++) {
-//         txt += faker.fake("{{name.firstName}} {{name.lastName}}\n");
-//     }
+    let qty = req.params.qty;
+    let txt = "";
+    let elementJson;
+    let element;
+    for (let i = 0; i < qty; i++) {
 
-//     res.send(txt)
-//     logger.debug(txt);
-// });
+        elementJson = {
+            type: faker.fake("{{lorem.word}}"),
+            title: faker.fake("{{commerce.productName}}"),
+            description: faker.fake("{{lorem.sentences}}"),
+            rate: faker.fake("{{commerce.price}}"),
+            tags: [
+                faker.fake("{{lorem.word}}"),
+                faker.fake("{{lorem.word}}"),
+                faker.fake("{{lorem.word}}")
+              ]
+            }
+
+        element = new Element(elementJson);
+        element.save();
+        
+    }
+
+    res.send('ok');
+});
 
 module.exports = router;
