@@ -1,0 +1,14 @@
+<nav>
+    <!-- <ul class="pagination"> -->
+  
+    <div class="page-item"
+        ng-class="{active: page === $ctrl.current }"
+        ng-repeat="page in $ctrl.getPageList()"
+        ng-click="$ctrl.setCurrent(page)">
+  
+        <span class="page-link">{{page}}</span>
+  
+    </div>
+  
+    <!-- </ul> -->
+  </nav>

@@ -1,5 +1,5 @@
 <div class="container page">
     <h1>{{$ctrl.element.type}} - {{$ctrl.element.title}}</h1>
     <p>{{$ctrl.element.description}}</p>
-    <span ng-repeat="tag in $ctrl.element.tags"> {{tag}} </span>
+    <span class="tag-default tag-pill tag-outline" ng-repeat="tag in $ctrl.element.tags"> {{tag}} </span>
 </div>

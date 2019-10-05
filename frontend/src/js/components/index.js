@@ -33,4 +33,7 @@ componentsModule.component('elementList', ElementList);
 import ElementPreview from './elements-helpers/element-preview.component';
 componentsModule.component('elementPreview', ElementPreview);
 
+import Pagination from './pagination/pagination.component';
+componentsModule.component('pagination', Pagination);
+
 export default componentsModule;
