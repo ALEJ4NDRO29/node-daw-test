@@ -13,6 +13,7 @@ var log4js = require('log4js');
 
 // MODELS
 require('./models/User');
+require('./models/MyUser');
 require('./models/Article');
 require('./models/Comment');
 require('./models/Element');

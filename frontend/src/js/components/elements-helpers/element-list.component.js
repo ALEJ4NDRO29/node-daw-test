@@ -30,7 +30,6 @@ class ElementListCtrl {
 
         this.elementList = {};
         let size = elements.length;
-console.log(size + 'aaaaaaaaaaaaaaa');
 
         for (let i = 0; i < this.limit; i++) {
             let index = this.limit * (this.currentPage - 1);

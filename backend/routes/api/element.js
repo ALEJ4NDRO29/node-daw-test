@@ -33,7 +33,6 @@ router.post('/fake/:qty', function (req, res) {
     }
 
     let qty = req.params.qty;
-    let txt = "";
     let elementJson;
     let element;
     for (let i = 0; i < qty; i++) {

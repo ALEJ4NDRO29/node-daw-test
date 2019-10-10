@@ -31,4 +31,7 @@ servicesModule.service('Toastr', ToastrService);
 import ElementsService from './elements.service';
 servicesModule.service('Elements', ElementsService);
 
+import LoginService from './login.service';
+servicesModule.service('Login', LoginService);
+
 export default servicesModule;

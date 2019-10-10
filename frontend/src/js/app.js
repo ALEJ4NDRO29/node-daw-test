@@ -17,11 +17,12 @@ import './home';
 import './profile';
 import './article';
 import './services';
-import './auth';
+// import './auth';
 import './settings';
 import './editor';
 import './suggestions';
 import './element';
+import './login'
 
 // Create and bootstrap application
 const requires = [
@@ -33,11 +34,12 @@ const requires = [
   'app.profile',
   'app.article',
   'app.services',
-  'app.auth',
+  // 'app.auth',
   'app.settings',
   'app.editor',
   'app.suggestions',
   'app.element',
+  'app.login',
   toastr
 ];
 

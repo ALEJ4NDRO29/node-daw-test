@@ -1,0 +1,32 @@
+<div class="container page">
+    <h1>{{$ctrl.registerUser ? 'Register' : 'Login'}}</h1>
+    <br>
+    <div ng-show="!$ctrl.registerUser">
+
+        <input class="form-group form-control form-control-lg" type="text" placeholder="Username"
+            ng-model="$ctrl.loginData.username" />
+
+        <input class="form-group form-control form-control-lg" type="password" placeholder="Password"
+            ng-model="$ctrl.loginData.password" />
+
+        <button class="btn btn-lg btn-primary pull-xs-right" ng-click="$ctrl.login()">Login</button>
+
+        <a ng-click="$ctrl.alternateForm()" href="">Create account</a>
+    </div>
+
+    <div ng-show="$ctrl.registerUser">
+            <input class="form-group form-control form-control-lg" type="text" placeholder="Username"
+                ng-model="$ctrl.registerData.username" ng-pattern="/^([a-zA-Z0-9])\w+/" />
+            <input class="form-group form-control form-control-lg" type="email" placeholder="Email"
+                ng-model="$ctrl.registerData.email" ng-pattern="/^[a-z]+[a-z0-9._]+@[a-z]+\.[a-z.]{2,5}$/"/>
+
+            <input class="form-group form-control form-control-lg" type="password" placeholder="Password"
+                ng-model="$ctrl.registerData.password" ng-pattern="/^.{6,}$/"/>
+
+            <button class="btn btn-lg btn-primary pull-xs-right" ng-click="$ctrl.register()">Register</button>
+
+            <a ng-click="$ctrl.alternateForm()" href="">Login</a>
+    </div>
+
+
+</div>

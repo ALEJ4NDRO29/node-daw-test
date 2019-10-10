@@ -6,10 +6,6 @@ class ElementCtrl {
 
         console.log(element);
     }
-
-
-
-
 }
 
 export default ElementCtrl;
