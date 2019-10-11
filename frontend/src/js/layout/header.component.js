@@ -1,13 +1,19 @@
 class AppHeaderCtrl {
-  constructor(AppConstants, User, $scope) {
+  constructor(AppConstants, $scope, Login) {
     'ngInject';
 
     this.appName = AppConstants.appName;
-    this.currentUser = User.current;
+    // this.currentUser = User.current;
+    this.currentUser = Login.currentUser;
 
-    $scope.$watch('User.current', (newUser) => {
+    $scope.$watch('Login.currentUser', (newUser) => {
       this.currentUser = newUser;
-    })
+    });
+  }
+
+  logout() {
+    // TODO
+    alert('logout')
   }
 }
 

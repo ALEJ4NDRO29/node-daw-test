@@ -1,11 +1,12 @@
 class LoginCtrl {
-    constructor(Login, Toastr, JWT) {
+    constructor(Login, Toastr, JWT, $state) {
         'ngInject';
 
         this.Toastr = Toastr;
         this.Login = Login;
         this.JWT = JWT;
         this.registerUser = false;
+        this.$state = $state;
         this.registerData = {
             username: 'alej4',
             email: 'josealejandro.r.29@gmail.com',
@@ -37,10 +38,13 @@ class LoginCtrl {
 
         let _jwt = this.JWT;
         let _Toastr = this.Toastr;
+        let _$state = this.$state;
 
         this.Login.login(this.loginData).then(function (response) {
             if (response.status == 200) {
+                _Toastr.success("Logged successfully")
                 _jwt.save(response.data.token);
+                _$state.go('app.home');
             } else {
                 _Toastr.error('Invalid username or password')
             }
@@ -70,8 +74,8 @@ class LoginCtrl {
                 _jwt.save(response.data.token);
             }
         });
-
     }
+
 }
 
 export default LoginCtrl;

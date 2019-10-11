@@ -16,15 +16,14 @@ function AppConfig($httpProvider, $stateProvider, $locationProvider, $urlRouterP
       abstract: true,
       templateUrl: 'layout/app-view.html',
       resolve: {
-        auth: function (User) {
-          return User.verifyAuth();
+        auth: function (Login) {
+          return Login.verifyAuth();
+          // return User.verifyAuth();
         }
       }
     });
 
   $urlRouterProvider.otherwise('/');
-
-
 }
 
 export default AppConfig;

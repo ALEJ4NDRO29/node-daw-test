@@ -17,12 +17,12 @@ import './home';
 import './profile';
 import './article';
 import './services';
-// import './auth';
+//  import './auth';
 import './settings';
 import './editor';
 import './suggestions';
 import './element';
-import './login'
+import './login';
 
 // Create and bootstrap application
 const requires = [

@@ -5,6 +5,14 @@ var passport = require('passport');
 var MyUser = mongoose.model('MyUser');
 var auth = require('../auth');
 
+
+router.get('/', auth.required, function (req, res) {
+    MyUser.findById(req.payload.id).then(function (user) {
+        res.send(user.toAuthJSON());
+    });
+    
+});
+
 router.post('/', function (req, res, next) {
     let userJson = req.body.user;
 
@@ -31,8 +39,6 @@ router.post('/', function (req, res, next) {
         // console.log(info);
 
         if (err) { return next(err); }
-
-        console.log(user);
 
         if (user) {
             return res.json(user.toAuthJSON());
