@@ -9,8 +9,8 @@ function SettingsConfig($stateProvider) {
     templateUrl: 'settings/settings.html',
     title: 'Settings',
     resolve: {
-      auth: function(User) {
-        return User.ensureAuthIs(true);
+      auth: function(Login) {
+        return Login.ensureAuth(true);
       }
     }
   });

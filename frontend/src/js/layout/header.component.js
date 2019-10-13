@@ -1,3 +1,5 @@
+
+
 class AppHeaderCtrl {
   constructor(AppConstants, $scope, Login) {
     'ngInject';
@@ -5,6 +7,7 @@ class AppHeaderCtrl {
     this.appName = AppConstants.appName;
     // this.currentUser = User.current;
     this.currentUser = Login.currentUser;
+    this.Login = Login;
 
     $scope.$watch('Login.currentUser', (newUser) => {
       this.currentUser = newUser;
@@ -12,8 +15,7 @@ class AppHeaderCtrl {
   }
 
   logout() {
-    // TODO
-    alert('logout')
+    this.Login.logout();
   }
 }
 

@@ -2,7 +2,7 @@
     <h1>{{$ctrl.registerUser ? 'Register' : 'Login'}}</h1>
     <br>
     <div ng-show="!$ctrl.registerUser">
-
+        <!-- LOGIN -->
         <input class="form-group form-control form-control-lg" type="text" placeholder="Username"
             ng-model="$ctrl.loginData.username" />
 
@@ -10,11 +10,13 @@
             ng-model="$ctrl.loginData.password" />
 
         <button class="btn btn-lg btn-primary pull-xs-right" ng-click="$ctrl.login()">Login</button>
-
-        <a ng-click="$ctrl.alternateForm()" href="">Create account</a>
+        
+        <p><a href="{{$ctrl.githubLoginUrl}}"><i class="fab fa-github"></i></a></p>
+        <p><a ng-click="$ctrl.alternateForm()" href="">Create account</a></p>
     </div>
 
     <div ng-show="$ctrl.registerUser">
+            <!-- REGISTER -->
             <input class="form-group form-control form-control-lg" type="text" placeholder="Username"
                 ng-model="$ctrl.registerData.username" ng-pattern="/^([a-zA-Z0-9])\w+/" />
             <input class="form-group form-control form-control-lg" type="email" placeholder="Email"

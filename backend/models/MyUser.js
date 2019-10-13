@@ -5,8 +5,9 @@ var jwt = require('jsonwebtoken');
 var secret = require('../config/secret').appSecret;
 
 var MyUserSchema = new mongoose.Schema({
+    socialid: {type:String,unique:true},
     username: { type: String, lowercase: true, unique: true, required: [true, "can't be blank"], match: [/^([a-zA-Z0-9])\w+/, 'is invalid'], index: true },
-    email: { type: String, lowercase: true, unique: true, required: [true, "can't be blank"], match: [/^[a-z]+[a-z0-9._]+@[a-z]+\.[a-z.]{2,5}$/, 'is invalid'], index: true },
+    email: { type: String, lowercase: true, required: [true, "can't be blank"], match: [/^[a-z]+[a-z0-9._]+@[a-z]+\.[a-z.]{2,5}$/, 'is invalid'], index: true },
     bio: String,
     hash: String,
     salt: String
@@ -33,6 +34,22 @@ MyUserSchema.methods.toProfileJSON = function () {
         bio: this.bio
     }
 }
+
+MyUserSchema.methods.getNoUpgradeableFields = function () {
+    return {
+        username: this.username,
+        email: this.email
+    }
+}
+
+MyUserSchema.methods.getUpgradeableFields = function () {
+    console.log(this.bio);
+    
+    return {
+        bio: this.bio ? this.bio : null
+    }
+}
+
 
 MyUserSchema.methods.toAuthJSON = function (user) {
     return {

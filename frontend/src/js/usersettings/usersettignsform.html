@@ -1,0 +1,14 @@
+<!-- COMPONENT -->
+
+<div ng-repeat="(key, value) in $ctrl.noUpgradeableFields">
+    <div>
+        <input type="text" class="form-group form-control form-control-lg" ng-model="value"
+            placeholder="{{$ctrl.capitalizeFLetter(key)}}" disabled>
+    </div>
+</div>
+<div ng-repeat="(key, value) in $ctrl.upgradeableFields">
+    <div>
+        <input type="text" class="form-group form-control form-control-lg" ng-model="value"
+            ng-change="$ctrl.noUpChange(key, value)" placeholder="{{$ctrl.capitalizeFLetter(key)}}">
+    </div>
+</div>

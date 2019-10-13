@@ -4,8 +4,6 @@
     <a class="navbar-brand" ui-sref="app.home" ng-bind="::$ctrl.appName | lowercase">
     </a>
 
-    <h1 show-authed="true">aaa</h1>
-    {{$ctrl.currentUser}}
     <!-- Show this for logged out users -->
     <ul show-authed="false" class="nav navbar-nav pull-xs-right">
 
@@ -66,10 +64,15 @@
       </li>
 
       <li class="nav-item">
-        <!-- FIXME -->
-        <a class="nav-link" ui-sref-active="active" ui-sref="app.profile.main({ username: $ctrl.currentUser.username})">
-          <img ng-src="{{$ctrl.currentUser.image}}" class="user-pic" />
+        <a class="nav-link" ui-sref-active="active" ui-sref="app.usersettings">
+          <!-- <img ng-src="{{$ctrl.currentUser.image}}" class="user-pic" /> -->
           {{ $ctrl.currentUser.username }}
+        </a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link" ui-sref-active="active" ui-sref="app.suggestions">
+          Suggest
         </a>
       </li>
 

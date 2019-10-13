@@ -8,6 +8,13 @@ function LoginConfig($stateProvider) {
             controllerAs: '$ctrl',
             templateUrl: 'login/login.html',
             title: 'Login',
+        })
+        
+        .state('app.sociallogin', {
+            url: '/login/sociallogin',
+            controller: 'LoginSocialCtrl',
+            controllerAs: '$ctrl',
+            title: 'Sign in...',
         });
 }
 

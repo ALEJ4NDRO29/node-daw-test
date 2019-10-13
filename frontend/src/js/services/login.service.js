@@ -23,9 +23,13 @@ export default class Login {
     });
   }
 
-  login(loginData) {
+  login(loginData, socialLogin) {
+    if (typeof socialLogin === 'undefined') {
+      socialLogin = '';
+    }
+
     return this.$http({
-      url: this.AppConstants.api + '/login/',
+      url: this.AppConstants.api + '/login/' + socialLogin,
       method: 'POST',
       data: {
         user: loginData
@@ -33,6 +37,7 @@ export default class Login {
     }).then((res) => {
 
       this.currentUser = res.data;
+      this.JWT.save(res.data.token);
 
       return res;
     }).catch((err) => {
@@ -85,5 +90,63 @@ export default class Login {
     }
 
     return deferred.promise;
+  }
+
+  ensureAuth(bool) {
+    let deferred = this.$q.defer();
+    this.verifyAuth().then((authValid) => {
+      if (authValid !== bool) {
+        this.$state.go('app.home')
+        deferred.resolve(false);
+      } else {
+        deferred.resolve(true);
+      }
+
+    });
+
+    return deferred.promise;
+  }
+
+  getUpgradeableFields() {
+    return this.$http({
+      url: this.AppConstants.api + '/login/upgradeablefields',
+      method: 'GET',
+      headers: {
+        Authorization: 'Token ' + this.JWT.get()
+      }
+    }).then(function (res) {
+      return res.data;
+    })
+  }
+
+  getNoUpgradeableFields() {
+    return this.$http({
+      url: this.AppConstants.api + '/login/noupgradeablefields',
+      method: 'GET',
+      headers: {
+        Authorization: 'Token ' + this.JWT.get()
+      }
+    }).then(function (res) {
+      return res.data;
+    })
+  }
+
+  upgrade(fields) {
+    return this.$http({
+      url: this.AppConstants.api + '/login/upgrade',
+      method: 'PUT',
+      headers: {
+        Authorization: 'Token ' + this.JWT.get()
+      },
+      data: fields
+    }).then(function (res) {
+      return res;
+    })
+  }
+
+  logout() {
+    this.currentUser = null;
+    this.JWT.destroy();
+    this.$state.go(this.$state.$current, null, { reload: true });
   }
 }

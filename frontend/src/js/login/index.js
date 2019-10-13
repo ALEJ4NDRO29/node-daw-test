@@ -12,4 +12,7 @@ loginModule.config(LoginConfig);
 import LoginCtrl from './login.controller';
 loginModule.controller('LoginCtrl', LoginCtrl);
 
+import LoginSocialCtrl from './loginsocial.controller';
+loginModule.controller('LoginSocialCtrl', LoginSocialCtrl);
+
 export default loginModule;
