@@ -70,10 +70,12 @@ class LoginCtrl {
         if (hasErrors) return;
 
         let _jwt = this.JWT;
+        let _$state = this.$state;
 
         this.Login.register(this.registerData).then(function (response) {
             if (response.status == 200) {
                 _jwt.save(response.data.token);
+                _$state.go('app.home');
             }
         });
     }

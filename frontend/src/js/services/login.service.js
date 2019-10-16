@@ -69,7 +69,6 @@ export default class Login {
         (res) => {
           this.currentUser = res.data;
           this.JWT.save(res.data.token);
-          console.log(this.currentUser);
 
           deferred.resolve(true);
 

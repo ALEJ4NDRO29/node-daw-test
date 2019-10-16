@@ -22,7 +22,10 @@ router.get('/noupgradeablefields', auth.required, function (req, res) {
 router.get('/', auth.required, function (req, res) {
     MyUser.findById(req.payload.id).then(function (user) {
         res.send(user.toAuthJSON());
+    }).catch(function () {
+        res.status(401).send();
     });
+    
 });
 
 router.post('/', function (req, res, next) {
@@ -40,15 +43,7 @@ router.post('/', function (req, res, next) {
         return;
     }
 
-    // MyUser.findOne({ nickname: userJson.nickname }).then(function (user) {
-    //     console.log(user);
-
-    //   }).catch(done);
-
     passport.authenticate('local', { session: false }, function (err, user, info) {
-        // console.log(err);
-        // console.log(user);
-        // console.log(info);
 
         if (err) { return next(err); }
 
@@ -90,14 +85,22 @@ router.post('/register', function (req, res) {
 });
 
 router.put('/upgrade', auth.required, function (req, res) {
-    logger.debug(req.body);
+    // logger.debug(req.body);
 
     MyUser.findById(req.payload.id).then(function (user) {
+        if(!user) {
+            logger.error(`error upgrading user ${req.payload.id}`)
+            res.status(500).send();
+            return;
+        }
+
         user.bio = req.body.bio;
 
         user.save().then(function () {
             res.send();
         });
+    }).catch(function () {
+        res.status(500).send();
     });
 })
 
@@ -109,14 +112,15 @@ router.post('/sociallogin', function (req, res) { // TODO
       sessionUser = (JSON.parse(sessions[key]).passport.user);
     }
 
-    logger.debug('sessionUser');
-    logger.debug(sessionUser);
+    // logger.debug('sessionUser');
+    // logger.debug(sessionUser);
 
     MyUser.findOne({'_id' : sessionUser}, function (err, user) {
-        logger.debug(user);
+        // logger.debug(user);
         if(user) {
             res.send(user.toAuthJSON());
         } else {
+            logger.error(`Social login, error getting user ${sessionUser}`)
             res.status(500).send();
         }
     })

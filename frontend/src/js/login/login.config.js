@@ -8,6 +8,11 @@ function LoginConfig($stateProvider) {
             controllerAs: '$ctrl',
             templateUrl: 'login/login.html',
             title: 'Login',
+            resolve: {
+                auth: function (Login) {
+                    Login.ensureAuth(false);
+                }
+            }
         })
         
         .state('app.sociallogin', {

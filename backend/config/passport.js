@@ -54,6 +54,7 @@ passport.use(new GithubStrategy({
         user = new MyUser({
           socialid: profile.id,
           username: profile.username,
+          img: profile.photos[0].value,
           email: profile.emails[0].value
         });
         user.save(function(err) {

@@ -1,5 +1,5 @@
 export default class Profile {
-  constructor (AppConstants, $http) {
+  constructor(AppConstants, $http) {
     'ngInject';
 
     this._AppConstants = AppConstants;
@@ -28,4 +28,12 @@ export default class Profile {
     }).then((res) => res.data);
   }
 
+  /********************************************************************/
+
+  getProfile(username) {
+    return this._$http({
+      url: this._AppConstants.api + '/profile/get/' + username,
+      method: 'GET'
+    }).then((res)=> res.data);
+  }
 }
