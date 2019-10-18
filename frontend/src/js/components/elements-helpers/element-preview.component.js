@@ -1,6 +1,7 @@
 class ElementPreviewCtrl {
     constructor() {}
-
+    
+    
     details(params) {
         console.log(params);
     }

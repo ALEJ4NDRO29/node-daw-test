@@ -1,0 +1,7 @@
+LIKE:
+    POST http://localhost:3000/api/elements/like/:slug
+    Authorization required
+
+UNLIKE:
+    DELETE http://localhost:3000/api/elements/like/:slug
+    Authorization required

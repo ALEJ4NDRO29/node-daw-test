@@ -3,8 +3,8 @@ import angular from 'angular';
 let componentsModule = angular.module('app.components', []);
 
 
-import ListErrors from './list-errors.component'
-componentsModule.component('listErrors', ListErrors);
+// import ListErrors from './list-errors.component'
+// componentsModule.component('listErrors', ListErrors);
 
 import ShowAuthed from './show-authed.directive';
 componentsModule.directive('showAuthed', ShowAuthed);
@@ -32,6 +32,9 @@ componentsModule.component('elementList', ElementList);
 
 import ElementPreview from './elements-helpers/element-preview.component';
 componentsModule.component('elementPreview', ElementPreview);
+
+import ElementLike from './elements-helpers/element-like.component';
+componentsModule.component('elementLike', ElementLike);
 
 import Pagination from './pagination/pagination.component';
 componentsModule.component('pagination', Pagination);
