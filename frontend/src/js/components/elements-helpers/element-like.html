@@ -1,7 +1,9 @@
 
 <!-- disabled, btn-outline-primary - (liked), btn-primary (like) -->
 <button class="btn btn-sm"
-  ng-class="" ng-click="$ctrl.like()">
-  <i class="ion-heart"></i> 
+  ng-class="{'btn-outline-primary': !$ctrl.element.isRated,
+            'btn-primary': $ctrl.element.isRated}"
+  ng-click="$ctrl.like()">
+  <i class="ion-heart"></i> {{$ctrl.element.rate}}
   <!-- <ng-transclude></ng-transclude> -->
 </button>

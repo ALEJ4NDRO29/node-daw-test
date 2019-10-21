@@ -1,10 +1,10 @@
 class ElementCtrl {
     constructor(element, $rootScope) {
-        this.element = element;
-
+        this.element = element.data;
+        
         $rootScope.setPageTitle(this.element.title);
 
-        console.log(element);
+        console.log(this.element);
     }
 }
 

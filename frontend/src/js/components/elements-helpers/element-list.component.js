@@ -22,14 +22,15 @@ class ElementListCtrl {
 
     setListElements() {
         let elements = this.allElements;
+        let size = Object.keys(elements).length;
+
         if (typeof this.limit === 'undefined') {
-            this.limit = 10;
+            this.limit = size;
         }
 
-        this.pages = Math.ceil(elements.length / this.limit);
+        this.pages = Math.ceil(size / this.limit);
 
         this.elementList = {};
-        let size = elements.length;
 
         for (let i = 0; i < this.limit; i++) {
             let index = this.limit * (this.currentPage - 1);

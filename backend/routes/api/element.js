@@ -23,25 +23,64 @@ router.param('slug', function name(req, res, next, slug) {
 
 })
 
-router.get('/get', function (req, res) {
+router.get('/get', auth.optional, function (req, res) {
+    var payload = req.payload;
+    (async function () {
+        try {
+            var user = null
+            if (payload) {
+                user = await MyUser.findById(payload.id);
+            }
 
-    Element.find({}, function (err, elements) {
-        res.send(elements);
-    });
+            var elements = await Element.find({});
 
+            let result = {};
+            Object.keys(elements).forEach(i => {
+                result[i] = elements[i].toJSONFor(user);
+            });
+
+            res.send(result);
+        } catch (error) {
+            logger.error(error);
+            res.status(500).send(error);
+        }
+    })();
 });
 
-router.get('/get/:slug', function (req, res) {
-    let slug = req.params.slug;
-    Element.find({ 'slug': slug }, function (err, element) {
-        if (element.length == 0) {
-            res.sendStatus(404);
-            logger.debug(`Element ${slug} not found`);
-            return;
+router.get('/get/mylikes', auth.required, function (req, res) {
+    (async function () {
+        try {
+            var user = await MyUser.findById(req.payload.id);
+            var elements = await Element.find({'_id' : {$in : user.likes}})
+            
+            let result = {};
+            Object.keys(elements).forEach(i => {
+                result[i] = elements[i].toJSONFor(user);
+            });
+
+            logger.debug(user.getLikes());
+            res.send(result);
+        } catch (error) {
+            logger.error(error);
+            res.status(500).send(error);
         }
-        res.send(element);
-        logger.debug(`Get element ${slug}`);
-    });
+    })();
+});
+
+router.get('/get/:slug', auth.optional, function (req, res) {
+    var payload = req.payload;
+    (async function () {
+        try {
+            var user = null
+            if (payload) {
+                user = await MyUser.findById(payload.id);
+            }
+            res.send(req.element.toJSONFor(user));
+        } catch (error) {
+            logger.error(error);
+            res.status(500).send(error);
+        }
+    })();
 });
 
 var fakerEnabled = false;
@@ -78,41 +117,38 @@ router.post('/fake/:qty', function (req, res) {
 
 router.post('/like/:slug', auth.required, function (req, res) {
     var element = req.element;
+    (async function () {
+        try {
+            var user = await MyUser.findById(req.payload.id);
+            if (!user) {
+                res.sendStatus(401);
+                return;
+            }
 
-    logger.debug('like')
-
-    MyUser.findById(req.payload.id).then(function (user) {
-        if(!user) { 
-            res.sendStatus(401);
-            return;
+            await user.like(element);
+            res.send(element.toJSONFor(user));
+        } catch (error) {
+            logger.error(error);
+            res.status(500).send(err.message);
         }
-
-        user.like(element).then(function () {
-            res.send(element.toJSONFor());
-        });
-    }).catch(function (err) {
-        logger.fatal(err);
-        res.status(500).send(err.message);
-    })
+    })();
 });
 
 router.delete('/like/:slug', auth.required, function (req, res) {
     var element = req.element;
-    
-    logger.debug('unlike');
-
-    MyUser.findById(req.payload.id).then(function (user) {
-        if(!user) { 
-            res.sendStatus(401);
-            return;
-        }
-        user.unlike(element).then(function () {
+    (async function () {
+        try {
+            var user = await MyUser.findById(req.payload.id);
+            if (!user) {
+                res.sendStatus(401);
+                return;
+            }
+            await user.unlike(element);
             res.send(element.toJSONFor());
-        });
-    }).catch(function (err) {
-        logger.fatal(err);
-        res.status(500).send(err.message);
-    })
+        } catch (error) {
+            res.status(500).send(err.message);
+        }
+    })();
 });
 
 router.delete('/like/:slug', auth.required, function (req, res) {

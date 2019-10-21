@@ -86,8 +86,9 @@ router.post('/register', function (req, res) {
 
 router.put('/upgrade', auth.required, function (req, res) {
     // logger.debug(req.body);
-
-    MyUser.findById(req.payload.id).then(function (user) {
+    (async function () {
+        try {
+        var user = await MyUser.findById(req.payload.id);
         if(!user) {
             logger.error(`error upgrading user ${req.payload.id}`)
             res.status(500).send();
@@ -95,13 +96,28 @@ router.put('/upgrade', auth.required, function (req, res) {
         }
 
         user.bio = req.body.bio;
+        await user.save();
+        res.send()
+    } catch (error) {
+        logger.error(errro);
+        res.status(500).send(error);
+    }
+    })();
+    // MyUser.findById(req.payload.id).then(function (user) {
+    //     if(!user) {
+    //         logger.error(`error upgrading user ${req.payload.id}`)
+    //         res.status(500).send();
+    //         return;
+    //     }
 
-        user.save().then(function () {
-            res.send();
-        });
-    }).catch(function () {
-        res.status(500).send();
-    });
+    //     user.bio = req.body.bio;
+
+    //     user.save().then(function () {
+    //         res.send();
+    //     });
+    // }).catch(function () {
+    //     res.status(500).send();
+    // });
 })
 
 router.post('/sociallogin', function (req, res) { // TODO

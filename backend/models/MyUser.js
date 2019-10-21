@@ -88,10 +88,7 @@ MyUserSchema.methods.like = function (element) {
 
     if (this.likes.indexOf(id) === -1) {
         this.likes.push(id);
-        var _this = this;
-        element.like().then(function () {
-            return _this.save();
-        }).catch(function (err) {
+        element.like().catch(function (err) {
             throw err;
         });
     }
@@ -106,14 +103,22 @@ MyUserSchema.methods.unlike = function (element) {
 
     if (this.likes.indexOf(id) !== -1) {
         this.likes.remove(id);
-        var _this = this;
-        element.unlike().then(function () {
-            return _this.save();
-        }).catch(function (err) {
+        element.unlike().catch(function (err) {
             throw err;
         });
     }
     return this.save();
+}
+
+MyUserSchema.methods.isRated = function (element) {
+    var id = element._id;
+
+    var isRated = (this.likes.indexOf(id) !== -1)
+    return isRated;
+}
+
+MyUserSchema.methods.getLikes = function () {
+    return this.likes;
 }
 
 mongoose.model('MyUser', MyUserSchema);

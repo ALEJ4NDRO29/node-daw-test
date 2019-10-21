@@ -34,14 +34,22 @@ ElementSchema.methods.unlike = function () {
     return this.save();
 }
 
-ElementSchema.methods.toJSONFor = function () {
-    return {
+/**
+ * 
+ * @param User mongo model 
+ */
+ElementSchema.methods.toJSONFor = function (user) {
+    let resp = {
+        slug: this.slug,
         type: this.type,
         title: this.title,
         description: this.description,
         rate: this.rate,
-        tags: this.tags
+        tags: this.tags,
+        isRated: user ? user.isRated(this) : false
     };
+
+    return resp;
 };
 
 mongoose.model('Element', ElementSchema);
