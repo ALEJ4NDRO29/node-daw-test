@@ -9,7 +9,7 @@ var Element = mongoose.model('Element');
 
 router.param('slug', function name(req, res, next, slug) {
 
-    logger.debug('slug param ' + slug)
+    // logger.debug('slug param ' + slug)
 
     Element.findOne({ slug: slug }).then(function (element) {
         if (!element) {
@@ -23,64 +23,58 @@ router.param('slug', function name(req, res, next, slug) {
 
 })
 
-router.get('/get', auth.optional, function (req, res) {
-    var payload = req.payload;
-    (async function () {
-        try {
-            var user = null
-            if (payload) {
-                user = await MyUser.findById(payload.id);
-            }
-
-            var elements = await Element.find({});
-
-            let result = {};
-            Object.keys(elements).forEach(i => {
-                result[i] = elements[i].toJSONFor(user);
-            });
-
-            res.send(result);
-        } catch (error) {
-            logger.error(error);
-            res.status(500).send(error);
+router.get('/get', auth.optional, async function (req, res) {
+    try {
+        var payload = req.payload;
+        var user = null
+        if (payload) {
+            user = await MyUser.findById(payload.id);
         }
-    })();
+
+        var elements = await Element.find({});
+
+        let result = {};
+        Object.keys(elements).forEach(i => {
+            result[i] = elements[i].toJSONFor(user);
+        });
+
+        res.send(result);
+    } catch (error) {
+        logger.error(error);
+        res.status(500).send(error);
+    }
 });
 
-router.get('/get/mylikes', auth.required, function (req, res) {
-    (async function () {
-        try {
-            var user = await MyUser.findById(req.payload.id);
-            var elements = await Element.find({'_id' : {$in : user.likes}})
-            
-            let result = {};
-            Object.keys(elements).forEach(i => {
-                result[i] = elements[i].toJSONFor(user);
-            });
+router.get('/get/mylikes', auth.required, async function (req, res) {
+    try {
+        var user = await MyUser.findById(req.payload.id);
+        var elements = await Element.find({ '_id': { $in: user.likes } })
 
-            logger.debug(user.getLikes());
-            res.send(result);
-        } catch (error) {
-            logger.error(error);
-            res.status(500).send(error);
-        }
-    })();
+        let result = {};
+        Object.keys(elements).forEach(i => {
+            result[i] = elements[i].toJSONFor(user);
+        });
+
+        logger.debug(user.getLikes());
+        res.send(result);
+    } catch (error) {
+        logger.error(error);
+        res.status(500).send(error);
+    }
 });
 
-router.get('/get/:slug', auth.optional, function (req, res) {
+router.get('/get/:slug', auth.optional, async function (req, res) {
     var payload = req.payload;
-    (async function () {
-        try {
-            var user = null
-            if (payload) {
-                user = await MyUser.findById(payload.id);
-            }
-            res.send(req.element.toJSONFor(user));
-        } catch (error) {
-            logger.error(error);
-            res.status(500).send(error);
+    try {
+        var user = null
+        if (payload) {
+            user = await MyUser.findById(payload.id);
         }
-    })();
+        res.send(req.element.toJSONFor(user));
+    } catch (error) {
+        logger.error(error);
+        res.status(500).send(error);
+    }
 });
 
 var fakerEnabled = false;
@@ -115,40 +109,36 @@ router.post('/fake/:qty', function (req, res) {
     res.send('ok');
 });
 
-router.post('/like/:slug', auth.required, function (req, res) {
+router.post('/like/:slug', auth.required, async function (req, res) {
     var element = req.element;
-    (async function () {
-        try {
-            var user = await MyUser.findById(req.payload.id);
-            if (!user) {
-                res.sendStatus(401);
-                return;
-            }
-
-            await user.like(element);
-            res.send(element.toJSONFor(user));
-        } catch (error) {
-            logger.error(error);
-            res.status(500).send(err.message);
+    try {
+        var user = await MyUser.findById(req.payload.id);
+        if (!user) {
+            res.sendStatus(401);
+            return;
         }
-    })();
+
+        await user.like(element);
+        res.send(element.toJSONFor(user));
+    } catch (error) {
+        logger.error(error);
+        res.status(500).send(err.message);
+    }
 });
 
-router.delete('/like/:slug', auth.required, function (req, res) {
+router.delete('/like/:slug', auth.required, async function (req, res) {
     var element = req.element;
-    (async function () {
-        try {
-            var user = await MyUser.findById(req.payload.id);
-            if (!user) {
-                res.sendStatus(401);
-                return;
-            }
-            await user.unlike(element);
-            res.send(element.toJSONFor());
-        } catch (error) {
-            res.status(500).send(err.message);
+    try {
+        var user = await MyUser.findById(req.payload.id);
+        if (!user) {
+            res.sendStatus(401);
+            return;
         }
-    })();
+        await user.unlike(element);
+        res.send(element.toJSONFor());
+    } catch (error) {
+        res.status(500).send(err.message);
+    }
 });
 
 router.delete('/like/:slug', auth.required, function (req, res) {

@@ -12,7 +12,6 @@ class ElementLikeCtrl {
                 return;
             }
 
-            var tmp = this.element;
             if(this.element.isRated) {
                 this._Elements.unlike(this.element.slug).then((response) => {
                     this.element = response.data;

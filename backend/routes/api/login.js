@@ -25,7 +25,7 @@ router.get('/', auth.required, function (req, res) {
     }).catch(function () {
         res.status(401).send();
     });
-    
+
 });
 
 router.post('/', function (req, res, next) {
@@ -84,12 +84,11 @@ router.post('/register', function (req, res) {
 
 });
 
-router.put('/upgrade', auth.required, function (req, res) {
+router.put('/upgrade', auth.required, async function (req, res) {
     // logger.debug(req.body);
-    (async function () {
-        try {
+    try {
         var user = await MyUser.findById(req.payload.id);
-        if(!user) {
+        if (!user) {
             logger.error(`error upgrading user ${req.payload.id}`)
             res.status(500).send();
             return;
@@ -102,7 +101,7 @@ router.put('/upgrade', auth.required, function (req, res) {
         logger.error(errro);
         res.status(500).send(error);
     }
-    })();
+    
     // MyUser.findById(req.payload.id).then(function (user) {
     //     if(!user) {
     //         logger.error(`error upgrading user ${req.payload.id}`)
@@ -124,16 +123,16 @@ router.post('/sociallogin', function (req, res) { // TODO
     let memorystore = req.sessionStore;
     let sessions = memorystore.sessions;
     let sessionUser;
-    for(var key in sessions){
-      sessionUser = (JSON.parse(sessions[key]).passport.user);
+    for (var key in sessions) {
+        sessionUser = (JSON.parse(sessions[key]).passport.user);
     }
 
     // logger.debug('sessionUser');
     // logger.debug(sessionUser);
 
-    MyUser.findOne({'_id' : sessionUser}, function (err, user) {
+    MyUser.findOne({ '_id': sessionUser }, function (err, user) {
         // logger.debug(user);
-        if(user) {
+        if (user) {
             res.send(user.toAuthJSON());
         } else {
             logger.error(`Social login, error getting user ${sessionUser}`)
@@ -147,7 +146,7 @@ router.get('/github', passport.authenticate('github'));
 
 router.get('/github/callback', passport.authenticate('github', {
     successRedirect: 'http://localhost:8080/#!/login/sociallogin',
-    failureRedirect: 'http://localhost:8080/#!/login' 
+    failureRedirect: 'http://localhost:8080/#!/login'
 }));
 
 module.exports = router;
