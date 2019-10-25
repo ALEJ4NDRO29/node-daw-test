@@ -1,0 +1,15 @@
+<div class="container page">
+    <div class="row">
+
+        <div class="col-md-9">
+            <h1>Users</h1>
+            <div ng-repeat="user in $ctrl.users">
+                <h2>{{user.username}}</h2>
+                <div ng-repeat="likes in user.likes">
+                    {{likes.title}}
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

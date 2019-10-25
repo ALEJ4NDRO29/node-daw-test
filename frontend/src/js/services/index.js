@@ -34,4 +34,7 @@ servicesModule.service('Elements', ElementsService);
 import LoginService from './login.service';
 servicesModule.service('Login', LoginService);
 
+import GraphqlService from './graphql.service';
+servicesModule.service('Graphql', GraphqlService);
+
 export default servicesModule;

@@ -25,6 +25,7 @@ import './suggestions';
 import './element';
 import './login';
 import './usersettings';
+import './adminpane';
 
 // Create and bootstrap application
 const requires = [
@@ -43,6 +44,7 @@ const requires = [
   'app.element',
   'app.login',
   'app.usersettings',
+  'app.adminpane',
   toastr,
   angularCookies
 ];
