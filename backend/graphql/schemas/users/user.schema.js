@@ -5,7 +5,8 @@ var schema = `
     }
 
     type Query {
-        user(username: String!) : [User]
+        user(username: String!) : [User],
+        users : [User]
     }
 `
 
