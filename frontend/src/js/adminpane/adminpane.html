@@ -4,9 +4,9 @@
         <div class="col-md-9">
             <h1>Users</h1>
             <div ng-repeat="user in $ctrl.users">
-                <h2>{{user.username}}</h2>
+                <h2>{{user.admin ? '✔️ - ' : ''}}{{user.username}}</h2>
                 <div ng-repeat="likes in user.likes">
-                    {{likes.title}}
+                    Total Rate: {{likes.rate}} - {{likes.title}}
                 </div>
             </div>
 

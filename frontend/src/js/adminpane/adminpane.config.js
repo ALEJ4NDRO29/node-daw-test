@@ -8,12 +8,10 @@ function AdminPaneConfig($stateProvider) {
         resolve: {
             users: function (Graphql) {
                 var query = `{users {
-                    username
+                    username,
+                    admin
                         likes {
-                            slug
-                            type
-                            title
-                            description
+                            title,
                             rate
                         }
                     }
