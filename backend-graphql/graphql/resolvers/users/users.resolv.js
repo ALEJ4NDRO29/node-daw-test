@@ -1,14 +1,26 @@
 const MyUser = require('mongoose').model('MyUser');
+var userAuth = require('../../../auth/userAuth');
 
 const resolv = {
-    async user(username) {
-        var user = await MyUser.find(username).populate('likes');
-        return user;
+    async user(dataInput, req) {
+        try {
+            await userAuth.adminRequired(req.payload);
+            var user = await MyUser.find({ username: dataInput.username }).populate('likes');
+            return user;
+        } catch (error) {
+            throw error;
+        }
     },
 
-    async users() {
-        var user = await MyUser.find().populate('likes');
-        return user;
+    async users(dataInput, req) {
+        try {
+            await userAuth.adminRequired(req.payload);
+            var user = await MyUser.find().populate('likes');
+            return user;
+        } catch (error) {
+            throw error;
+        }
+
     }
 
 }

@@ -6,6 +6,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var cors = require('cors')
 var log4js = require('log4js');
+var middleware = require('./auth/middleware');
 
 var mongoose = require('mongoose');
 
@@ -17,7 +18,6 @@ var routes = require('./routes');
 
 mongoose.connect(constants.MONGO);
 mongoose.set('debug', true);
-
 
 log4js.configure({
 	appenders: { 'app': { type: 'file', filename: 'logs/app.log' }, 'console': { type: 'console' } },
@@ -35,6 +35,7 @@ app.use((req, res, next) => {
     res.header('Allow', '*');
     next();
 });
+
 // TODO (swagger-generator-express)
 // const expressSwagger = require('express-swagger-generator')(app);
 // var swaggerDef = require('./config/swagger-def');
@@ -42,14 +43,9 @@ app.use((req, res, next) => {
 // app.use('/doc', expressSwagger(swaggerDef));
 
 app.use(require('morgan')('dev'));
-// app.use(express.json());
-// app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-// app.use(express.static(path.join(__dirname, 'public')));
 
-
-
-
+app.use(middleware.getLoggedUser);
 app.use('/', routes);
 
 // catch 404 and forward to error handler

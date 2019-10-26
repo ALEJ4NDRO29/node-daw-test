@@ -5,7 +5,7 @@ const schemas = require('../../graphql/schemas');
 const resolvers = require('../../graphql/resolvers');
 
 router.use(
-    '/', // graphql
+    '/', 
     graphqlHTTP({
         schema: schemas,
         rootValue: resolvers,

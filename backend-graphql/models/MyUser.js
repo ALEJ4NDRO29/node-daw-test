@@ -8,10 +8,15 @@ var MyUserSchema = new mongoose.Schema({
     bio: String,
     likes: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Element' }],
     hash: String,
-    salt: String
+    salt: String,
+    admin: Boolean
 }, {
     timestamps: true,
     usePushEach: true
 });
+
+MyUserSchema.methods.isAdmin = function () {
+    return this.admin != null ? this.admin : false;
+}
 
 mongoose.model('MyUser', MyUserSchema);
