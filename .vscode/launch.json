@@ -7,10 +7,21 @@
         {
             "type": "node",
             "request": "launch",
-            "name": "Launch Server Nodemon",
+            "name": "Launch Backend",
             "runtimeExecutable": "nodemon",
             "program": "${workspaceFolder}/backend/app.js",
             "cwd": "${workspaceFolder}/backend",
+            "restart": true,
+            "console": "integratedTerminal",
+            "internalConsoleOptions": "neverOpen"
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Launch Graphql Backend",
+            "runtimeExecutable": "nodemon",
+            "program": "${workspaceFolder}/backend-graphql/app.js",
+            "cwd": "${workspaceFolder}/backend-graphql",
             "restart": true,
             "console": "integratedTerminal",
             "internalConsoleOptions": "neverOpen"
