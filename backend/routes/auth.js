@@ -1,5 +1,4 @@
 var jwt = require('express-jwt');
-// var secret = require('../config').secret;
 var secret = require('../config/secret').appSecret;
 
 
