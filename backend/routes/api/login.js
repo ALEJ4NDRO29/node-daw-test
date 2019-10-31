@@ -119,7 +119,7 @@ router.put('/upgrade', auth.required, async function (req, res) {
     // });
 })
 
-router.post('/sociallogin', function (req, res) { // TODO
+router.post('/sociallogin', function (req, res) { 
     let memorystore = req.sessionStore;
     let sessions = memorystore.sessions;
     let sessionUser;

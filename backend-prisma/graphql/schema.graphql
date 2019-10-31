@@ -1,0 +1,8 @@
+type Query {
+  find:[Event]
+}
+
+type Event {
+  id: ID!
+  name: String!
+}
