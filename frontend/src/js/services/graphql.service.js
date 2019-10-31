@@ -1,5 +1,5 @@
 import ApolloClient from "apollo-client";
-import {ApolloLink, HttpLink} from "apollo-boost";
+import { ApolloLink, HttpLink } from "apollo-boost";
 import { InMemoryCache } from "apollo-cache-inmemory";
 import gql from 'graphql-tag';
 
@@ -12,7 +12,7 @@ export default class GraphqlService {
         // JWT TOKEN
         this.ApolloLink = new ApolloLink((operation, forward) => {
             const token = JWT.get()
-            
+
             operation.setContext({
                 headers: {
                     authorization: token ? `Token ${token}` : ''

@@ -1,4 +1,7 @@
-type Event {
+type Suggestion {
   id: ID! @id
-  name: String!
+  createdAt: DateTime! @createdAt
+  name: String
+  email: String
+  content: String
 }

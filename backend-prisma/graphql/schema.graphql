@@ -1,8 +1,16 @@
 type Query {
-  find:[Event]
+	suggestion(id: String!) : Suggestion
+    suggestions: [Suggestion]
 }
 
-type Event {
-  id: ID!
-  name: String!
+type Mutation {
+    createSuggestion(name: String, email: String, content: String) : Boolean
+}
+
+type Suggestion {
+	id: ID!
+    createdAt: String
+	name: String
+	email: String
+	content: String
 }
