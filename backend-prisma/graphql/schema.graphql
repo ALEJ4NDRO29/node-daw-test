@@ -1,5 +1,4 @@
 type Query {
-	suggestion(id: String!) : Suggestion
     suggestions: [Suggestion]
 }
 

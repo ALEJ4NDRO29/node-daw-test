@@ -5,7 +5,7 @@ var logger = require('log4js').getLogger();
 sgMail.setApiKey(secrets.SENDGRID_APIKEY);
 
 exports.newSuggestion = function (req, res) {
-    const enabled = true;
+    const enabled = false;
 
     const msg = {
         to: 'josealejandro.r.29@gmail.com',

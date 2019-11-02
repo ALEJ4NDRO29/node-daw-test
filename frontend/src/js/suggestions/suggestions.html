@@ -1,4 +1,10 @@
 <div class="container page">
-    <h1>Suggestion</h1>
-    <suggestion-form></suggestion-form>
+    <h1>Suggestion</h1><br>
+
+    <div ng-show="$ctrl.formVisible">
+        <suggestion-form></suggestion-form>
+        <a href="" ng-click="$ctrl.showList()">Show List</a>
+    </div>
+
+    <suggestion-list></suggestion-list>
 </div>

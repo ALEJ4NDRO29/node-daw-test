@@ -15,4 +15,7 @@ suggestionsModule.controller('SuggestionsCtrl', SuggestionsCtrl);
 import suggestionForm from './suggestion.component';
 suggestionsModule.component('suggestionForm', suggestionForm);
 
+import suggestionList from './suggestionList.component';
+suggestionsModule.component('suggestionList', suggestionList);
+
 export default suggestionsModule;

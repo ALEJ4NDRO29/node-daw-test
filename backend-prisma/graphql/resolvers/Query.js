@@ -1,13 +1,8 @@
 
-async function suggestion(parent, args, context) {
-    // return context.prisma.events({});
-}
-
 async function suggestions(parent, args, context) {
-    // return context.prisma.events({});
+    return context.prisma.suggestions();
 }
 
 module.exports = {
-    suggestion,
     suggestions
 };
