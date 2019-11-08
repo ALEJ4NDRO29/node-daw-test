@@ -1,0 +1,55 @@
+version: "3.0"
+
+services:
+
+  api:
+    build:
+      context: .
+    image: microservice
+    env_file: docker-compose.env
+    environment:
+      SERVICES: api
+      PORT: 3500
+    links:
+      - nats
+    depends_on:
+      - nats
+    labels:
+      traefik.enable: "true"  
+      traefik.backend: "api"
+      traefik.port: "3500"
+      traefik.frontend.entryPoints: "http"
+      traefik.frontend.rule: "PathPrefix:/"
+
+  events:
+    build:
+      context: .
+    image: microservice
+    env_file: docker-compose.env
+    environment:
+      SERVICES:
+        events
+    links:
+      - nats
+    depends_on:
+      - nats
+
+  mongo:
+    image: mongo
+    volumes:
+      - ./db:/data/db
+    ports:
+      - '27019:27017'
+
+  nats:
+    image: nats
+
+  traefik:
+    image: traefik:v1.7
+    # command: --web --docker --docker.domain=docker.localhost --logLevel=INFO --docker.exposedbydefault=false
+    ports:
+      - "3500:80"
+      - "3501:8080"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock # So that Traefik can listen to the Docker events
+      - ./traefik/traefik.toml:/traefik.toml
