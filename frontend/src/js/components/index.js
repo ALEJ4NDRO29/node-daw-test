@@ -36,6 +36,9 @@ componentsModule.component('elementPreview', ElementPreview);
 import ElementLike from './elements-helpers/element-like.component';
 componentsModule.component('elementLike', ElementLike);
 
+import EventList from './events-helpers/events-list.component';
+componentsModule.component('eventsList', EventList);
+
 import Pagination from './pagination/pagination.component';
 componentsModule.component('pagination', Pagination);
 

@@ -5,20 +5,21 @@ var passport = require('passport');
 var MyUser = mongoose.model('MyUser');
 var auth = require('../auth');
 
-// PROFILE
+// PROFILE datos actualizables de un usuario
 router.get('/upgradeablefields', auth.required, function (req, res) {
     MyUser.findById(req.payload.id).then(function (user) {
         res.send(user.getUpgradeableFields());
     });
 });
 
-// PROFILE
+// PROFILE datos no actualizables de un usuario
 router.get('/noupgradeablefields', auth.required, function (req, res) {
     MyUser.findById(req.payload.id).then(function (user) {
         res.send(user.getNoUpgradeableFields());
     });
 });
 
+// Usuario logeado
 router.get('/', auth.required, function (req, res) {
     MyUser.findById(req.payload.id).then(function (user) {
         res.send(user.toAuthJSON());
@@ -28,6 +29,7 @@ router.get('/', auth.required, function (req, res) {
 
 });
 
+// login
 router.post('/', function (req, res, next) {
     let userJson = req.body.user;
 

@@ -95,6 +95,7 @@ gulp.task('default', ['html', 'browserify'], function() {
     server: "./build",
     port: 8080,
     notify: false,
+    open: false,
     ui: {
       port: 4001
     }

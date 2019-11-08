@@ -3,7 +3,7 @@ var logger = require('log4js').getLogger();
 var email = require('../../utils/email');
 var PrismaUtils = require('../../utils/prisma');
 
-
+// Nueva sugerencia
 router.use('/new', async function (req, res) {
     try {
         if (req.method != 'POST') {
@@ -17,8 +17,10 @@ router.use('/new', async function (req, res) {
 
         var mutation = `mutation {createSuggestion(name : "${req.body.name}" email: "${req.body.email}" content: "${req.body.content}")}`
 
+        // Enviar a prisma
         PrismaUtils.mutation(mutation);
 
+        // Enviar email
         email.newSuggestion(req, res);
     } catch (err) {
         console.log(err);

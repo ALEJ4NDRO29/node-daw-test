@@ -1,7 +1,8 @@
 var router = require('express').Router();
 var mongoose = require('mongoose');
 var MyUser = mongoose.model('MyUser');
-var auth = require('../auth');
+
+// Perfil público de un usuario
 
 router.get('/get/:username', function (req, res) {
     var username = req.params.username;

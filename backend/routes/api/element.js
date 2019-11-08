@@ -9,8 +9,6 @@ var Element = mongoose.model('Element');
 
 router.param('slug', function name(req, res, next, slug) {
 
-    // logger.debug('slug param ' + slug)
-
     Element.findOne({ slug: slug }).then(function (element) {
         if (!element) {
             res.sendStatus(400);
