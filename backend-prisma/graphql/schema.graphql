@@ -6,6 +6,10 @@ type Mutation {
     createSuggestion(name: String, email: String, content: String) : Boolean
 }
 
+type Subscription {
+	onNewSuggestion : Suggestion
+}
+
 type Suggestion {
 	id: ID!
     createdAt: String
