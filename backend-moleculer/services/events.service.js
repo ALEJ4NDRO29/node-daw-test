@@ -21,11 +21,11 @@ module.exports = {
     methods : {
         async seed() {
             await this.adapter.insert({
-                name: "test1",
+                name: "Event 1",
                 date: new Date().toDateString()
             })
             await this.adapter.insert({
-                name: "test2",
+                name: "Event 2",
                 date: new Date().toDateString()
             })
         }

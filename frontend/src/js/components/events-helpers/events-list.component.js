@@ -1,5 +1,13 @@
 class EventListCtrl {
-    constructor() {}
+    constructor($scope) {
+        this.$scope = $scope;
+        this.events = {};
+
+        $scope.$on('setListEvents', (e, events) => {
+            this.events = events;
+        });
+
+    }
 }
 
 let EventList = {

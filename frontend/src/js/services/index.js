@@ -40,4 +40,7 @@ servicesModule.service('Graphql', GraphqlService);
 import PrismaService from './prisma.service';
 servicesModule.service('Prisma', PrismaService);
 
+import EventsService from './events.service';
+servicesModule.service('Events', EventsService);
+
 export default servicesModule;
